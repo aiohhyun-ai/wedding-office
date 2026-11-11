@@ -1,24 +1,27 @@
 # Aside 연결
 
 Aside가 네이버 구간(카페 본문 읽기, 승인된 댓글 등록, 답글 확인)을 맡는다.
-Claude 쪽은 Aside를 직접 조종하지 않는다. 둘은 Google Drive 문서로만 주고받는다.
+Claude 쪽은 Aside를 직접 실행하거나 조종하지 않는다. 둘은 Google Drive 폴더로만 주고받는다.
 
-## 문서
+## Drive 구조
 
-| 문서 | 역할 | 링크 |
+| 위치 | 역할 | ID |
 |---|---|---|
-| Aside_업무지시서 | Aside가 할 일의 원본. 실행할 때마다 Aside가 읽는다 | https://docs.google.com/document/d/144JEB9zDZSTv6R7k3FSInm3i9CgdATmyGBCuf82-8Dk/edit |
-| 할일_네이버조사 | 조사할 주제 대기열 | https://docs.google.com/document/d/1VFfsmELY5AlG7hvoU6KMUBTOYgH9YWBJ8E0O3yiV7X4/edit |
-| 승인된댓글 | 승인된 댓글 대기열, 답글 기록 | https://docs.google.com/document/d/1e38EmTdYpufmlGfO7chZMEzgXWGvzhO6hWjkJ0XNESo/edit |
+| 웨딩오피스/Aside_업무지시서 | Aside 할 일의 원본. Aside가 실행할 때마다 읽는다 | `1ZWSWF2T8wCBIfotN8CxptDBQHDTfWgTyhmX5fwXxPus` |
+| 00_Aside함/할일_조사 | 리서처가 조사 요청 파일(T001…)을 넣는다 | `1KgtWEp2B_lDixucYsfcargKv8u8xXBQ6` |
+| 00_Aside함/할일_댓글 | 리서처가 승인된 댓글 파일(C001…)을 넣는다 | `1WWgjApAgAVIYQVB04SNnW39YiX0xTNzr` |
+| 00_Aside함/처리완료 | Aside가 처리한 요청 파일을 옮겨두는 곳 | `1mL9zSxG42EZJUks6QiLvA-dTNUo5CD6i` |
+| 01_조사자료 | Aside 결과(…_카페조사, …_카페인기글, …_답글)와 리서처 정리본 | `1p9opGXfMuvG4IovVXs6I6eLf9OZBaLQh` |
 
-결과 저장 위치: 웨딩오피스/01_조사자료
+요청 하나당 파일 하나로 주고받는 이유: Claude의 Drive 연결은 기존 문서 내용을 고칠 수 없고,
+한 문서를 둘이 동시에 고치면 내용이 꼬일 수 있다.
 
 ## 업무 내용을 바꿀 때
 
-Aside_업무지시서 문서만 고친다. 맨 위 "버전" 줄을 올리고 "변경 기록"에 한 줄 남긴다.
-Aside 루틴 자체는 다시 손대지 않아도 된다.
+Aside_업무지시서를 새 버전으로 만든다. 맨 위 "버전" 줄을 올리고 "변경 기록"에 한 줄 남긴다.
+(Claude가 고칠 때는 새 문서를 같은 이름으로 만들고 이전 문서를 휴지통으로 옮긴다.)
 
-## Aside 루틴에 넣어둔 내용 (한 번만 설정)
+## Aside 루틴 (한 번만 설정, 30분 이하 간격)
 
 ```
 실행할 때마다 먼저 Google Drive "웨딩오피스/Aside_업무지시서" 문서를 열어서 끝까지 읽어.
@@ -27,3 +30,12 @@ Aside 루틴 자체는 다시 손대지 않아도 된다.
 나에게 "업무지시서가 버전 ○○로 바뀌어서 적용했어"라고 한 줄 알려줘. 같으면 그냥 진행해.
 문서를 열 수 없으면 아무것도 하지 말고 나에게 알려줘.
 ```
+
+## Claude 직원 예약 (클라우드에서 실행, Mac 꺼져 있어도 됨)
+
+| 직원 | 실행 |
+|---|---|
+| 트렌드 스카우트 | 매일 08:41 |
+| 리서처 | 매시 29분 |
+| 기획자 | 매시 30분 |
+| 우편 담당 | 매일 08:47, 20:47 |
