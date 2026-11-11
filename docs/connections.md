@@ -16,8 +16,16 @@
 | 04_디자인 | `1GQvN-5C91rBNjD0B6p7Roy-S84GOF1Sv` |
 | 05_분석리포트 | `1RtLrCrhrsQI-yBPjj_UVwCWhqVb_o0eO` |
 
+## Aside 연결 문서
+
+| 문서 | ID |
+|---|---|
+| 할일_네이버조사 | `1VFfsmELY5AlG7hvoU6KMUBTOYgH9YWBJ8E0O3yiV7X4` |
+| 승인된댓글 | `1e38EmTdYpufmlGfO7chZMEzgXWGvzhO6hWjkJ0XNESo` |
+
+Aside 루틴: 매일 오전 8시. Mac이 켜져 있고 Aside 앱이 실행 중이어야 한다. 지시문은 `docs/aside.md`.
+
 ## 아직 준비 안 된 것
 
 - NAVER API HUB 검색 API 키
 - Meta 개발자 앱 (인스타그램 게시 권한)
-- 조사 대상 네이버 카페 목록
