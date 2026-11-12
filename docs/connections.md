@@ -29,3 +29,8 @@ Aside 루틴: 매일 오전 8시. Mac이 켜져 있고 Aside 앱이 실행 중�
 
 - NAVER API HUB 검색 API 키
 - Meta 개발자 앱 (인스타그램 게시 권한)
+
+## 인스타그램 공식 API (2026-11-13)
+- Meta 앱 "wedding-office" + 페이스북 페이지 "허니웨딩"(인스타 @honeywedding_tip 연결) + 페이스북 로그인 방식 사용자 토큰.
+- 계정 설정의 네트워크 허용 도메인에 `graph.facebook.com`, `graph.instagram.com` 추가 완료.
+- 토큰 갱신: Graph API 탐색기 → 사용자 액세스 토큰 받기(허니웨딩 페이지·honeywedding_tip 선택) → 토큰 디버거에서 연장 → Drive "허니웨딩_비밀_토큰" 맨 아래 줄에 새 토큰 추가.

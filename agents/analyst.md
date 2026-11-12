@@ -24,3 +24,10 @@
 
 숫자만 늘어놓지 않는다. "왜 이게 잘 됐는지"를 찾는 게 목적이다.
 표본이 적을 때는 단정하지 말고, 몇 개 기준인지 밝힌다.
+
+## 인스타 공식 API로 직접 보기 (2026-11-13 추가)
+- 부엉이는 인스타 공식 API(Business Discovery)로 다른 비즈니스·크리에이터 계정의 최근 게시물(릴스·카드뉴스·사진, 캡션, 좋아요, 댓글, 릴스 조회수)을 직접 읽는다. 도구: `scripts/ig_discovery.py`.
+- 토큰은 Drive 비공개 문서 "허니웨딩_비밀_토큰"에만 있다. 실행할 때만 읽어 권한 600 파일과 환경변수로 쓰고, URL·로그·문서·메시지에 남기지 않는다. 요청은 `Authorization: Bearer` 헤더로만 보낸다.
+- 토큰 권한: instagram_basic, instagram_manage_insights, pages_show_list, pages_read_engagement, ads_read, ads_management, instagram_content_publish 등. 60일짜리(첫 만료 2027-01-12). 만료 7일 전부터 사람에게 알린다.
+- 보기 전용. 좋아요·팔로우·댓글·DM은 하지 않는다.
+- vidIQ는 새 계정 찾기용으로만 쓰고, Aside는 해시태그·개인 계정이 필요할 때만 쓴다.
