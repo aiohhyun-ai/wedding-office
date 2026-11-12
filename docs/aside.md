@@ -1,13 +1,13 @@
 # Aside 연결
 
-Aside가 네이버 구간(카페 본문 읽기, 승인된 댓글 등록, 답글 확인)을 맡는다.
+Aside가 네이버·인스타그램 구간(카페·네이버 블로그·인스타그램 조사, 승인된 댓글 등록, 답글 확인)을 맡는다. 네이버가 아닌 웹(구글·뉴스·티스토리 등)은 Claude 직원이 WebSearch로 직접 찾는다.
 Claude 쪽은 Aside를 직접 실행하거나 조종하지 않는다. 둘은 Google Drive 폴더로만 주고받는다.
 
 ## Drive 구조
 
 | 위치 | 역할 | ID |
 |---|---|---|
-| 웨딩오피스/Aside_업무지시서 | Aside 할 일의 원본. Aside가 실행할 때마다 읽는다 | `1GReEKn4_bxUJ6a1HSq00BSOvqSdI24RXi286loT-7GE` |
+| 웨딩오피스/Aside_업무지시서 | Aside 할 일의 원본. Aside가 실행할 때마다 읽는다 | `1E062RYndxRqPOe8F5keNFyXYyptf59jp0Bh9YoqWcSg` |
 | 00_Aside함/할일_조사 | 리서처가 조사 요청 파일(T001…)을 넣는다 | `1KgtWEp2B_lDixucYsfcargKv8u8xXBQ6` |
 | 00_Aside함/할일_댓글 | 리서처가 승인된 댓글 파일(C001…)을 넣는다 | `1WWgjApAgAVIYQVB04SNnW39YiX0xTNzr` |
 | 00_Aside함/처리완료 | Aside가 처리한 요청 파일을 옮겨두는 곳 | `1mL9zSxG42EZJUks6QiLvA-dTNUo5CD6i` |
