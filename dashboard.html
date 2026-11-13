@@ -97,12 +97,18 @@ h1{font-family:var(--kr);font-weight:400;font-size:36px;line-height:1;margin:0;c
 .kind-댓글 .tag{background:var(--pink)}
 .kind-디자인 .tag{background:var(--sky)}
 .kind-전략 .tag{background:#C9B8F2}
+.kind-게시 .tag{background:var(--mint)}
 .strat{display:flex;flex-direction:column;gap:10px}
 .st{background:#fff;border:3px solid var(--ink);border-radius:10px;padding:10px 12px}
 .st b{display:block;line-height:1.4}
 .st p{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
 .ap-title{font-weight:600;line-height:1.4}
-.ap-detail{font-size:13px;color:var(--muted);white-space:pre-wrap}
+.ap-detail{font-size:13px;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}
+.ap-detail.clamp{max-height:9.6em;overflow:hidden;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.ap-detail a{color:var(--pink-deep);text-decoration:underline}
+.more{align-self:flex-start;flex:none;font-family:var(--body);font-size:12.5px;font-weight:600;padding:4px 12px;border-width:2px;box-shadow:0 2px 0 0 var(--ink);background:var(--cream)}
+.grid>*,.side>*,.win,.body,.inbox,.ap,.st,.done{min-width:0;max-width:100%}
+.ap-title,.st,.done,.feed li{overflow-wrap:anywhere;word-break:break-word}
 .ap label{font-size:12px;color:var(--muted)}
 .ap textarea{width:100%;font:inherit;font-size:13px;border:2px solid var(--ink);border-radius:8px;padding:7px;background:var(--cream);color:var(--ink);resize:vertical;min-height:38px}
 .btns{display:flex;gap:10px;padding-bottom:4px}
@@ -110,7 +116,7 @@ button{font-family:var(--kr);font-size:22px;line-height:1;padding:8px 10px 7px;c
 button.yes{background:var(--pink-deep);color:#fff}
 button.no{background:#fff}
 button.redo{background:var(--yellow)}
-.btns button{font-size:20px;padding:8px 6px 7px}
+.btns button{font-size:20px;padding:8px 6px 7px;white-space:nowrap}
 .hint{font-size:11.5px;color:var(--muted);line-height:1.5}
 .done .redo{color:#B7700F;font-weight:600}
 button:active:not(:disabled){transform:translateY(4px);box-shadow:none}
@@ -138,6 +144,8 @@ button:focus-visible,textarea:focus-visible{outline:3px solid var(--mint-deep);o
   .caps{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
   .cap{flex-direction:column;gap:2px;border-radius:12px;padding:6px 4px}
   .cap span{font-size:17px}
+  .btns{gap:8px}
+  .btns button{font-size:18px}
   .desks{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
   .who{flex-direction:column}
 }
@@ -192,12 +200,14 @@ button:focus-visible,textarea:focus-visible{outline:3px solid var(--mint-deep);o
 (function(){
   const $ = id => document.getElementById(id);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const openIds = new Set();
+  const linkify = t => esc(t).replace(/https?:\/\/[^\s<]+/g, u => `<a href="${u}" target="_blank" rel="noopener">${u.length>48?u.slice(0,45)+"…":u}</a>`);
   const STATUS = {working:"일하는 중", waiting:"승인 대기", idle:"쉬는 중"};
   let agents = [], approvals = [], logs = [], strategies = [], db = null, canWrite = true;
   const busy = new Set();
   const TRIG = {researcher:"trig_01JKtAXpyeG1Jcn23xheiDFD", planner:"trig_01UWSvXJuiVshn1tGy4hsxxu", designer:"trig_01SdoWkDSPuLEVtikf5WdAps", analyst:"trig_01QPbUjazngXYz42QfGbdi6Q", publisher:"trig_01Dgj4ptzJyyRYGFvjiHgzrX"};
   const WHO_DOES = {"주제":"researcher", "댓글":"researcher", "기획":"planner", "디자인":"designer", "전략":"analyst", "게시":"publisher"};
-  const AGENT_KO = {researcher:"고양이", planner:"곰", designer:"개구리", analyst:"부엉이"};
+  const AGENT_KO = {researcher:"고양이", planner:"곰", designer:"개구리", analyst:"부엉이", publisher:"강아지"};
   let toast = "";
   async function wakeAgent(kind, approvalId){
     const agent = WHO_DOES[kind]; if(!agent) return null;
@@ -338,7 +348,7 @@ button:focus-visible,textarea:focus-visible{outline:3px solid var(--mint-deep);o
       <div class="ap kind-${esc(x.kind)}" data-id="${esc(x.id)}">
         <div class="ap-top"><span class="tag">${esc(x.kind)}</span><span>${esc(nameOf(x.agent))} · ${ago(x.createdAt)}</span></div>
         <div class="ap-title">${esc(x.title)}</div>
-        ${x.detail ? `<div class="ap-detail">${esc(x.detail)}</div>` : ""}
+        ${x.detail ? `<div class="ap-detail${openIds.has(x.id)?"":" clamp"}">${linkify(x.detail)}</div>${String(x.detail).length>160?`<button class="more" data-more="${esc(x.id)}">${openIds.has(x.id)?"접기 ▲":"펼쳐보기 ▼"}</button>`:""}` : ""}
         <label for="note-${esc(x.id)}">메모</label>
         <textarea id="note-${esc(x.id)}" rows="2" placeholder="다시 해와: 무엇을 고칠지 꼭 적어주세요 · 승인: 진행하면서 반영할 점(선택)"></textarea>
         <div class="btns">
@@ -369,6 +379,10 @@ button:focus-visible,textarea:focus-visible{outline:3px solid var(--mint-deep);o
   }
 
   $("inbox").addEventListener("click", async e => {
+    const mb = e.target.closest("[data-more]");
+    if(mb){ const id = mb.dataset.more; openIds.has(id) ? openIds.delete(id) : openIds.add(id);
+      const card = mb.closest(".ap"); const d = card && card.querySelector(".ap-detail");
+      if(d){ d.classList.toggle("clamp", !openIds.has(id)); } mb.textContent = openIds.has(id) ? "접기 ▲" : "펼쳐보기 ▼"; return; }
     const btn = e.target.closest("button[data-act]"); if(!btn || !db) return;
     const card = btn.closest(".ap"); const id = card.dataset.id; if(busy.has(id)) return;
     const act = btn.dataset.act; const note = card.querySelector("textarea").value.trim();
