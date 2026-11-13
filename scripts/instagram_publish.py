@@ -33,13 +33,14 @@ def call(path, params=None, post=False):
     if not token:
         sys.exit("IG_ACCESS_TOKEN 환경변수를 설정하세요.")
     params = dict(params or {})
-    params["access_token"] = token
     url = f"{API}/{path}"
+    # 토큰은 URL·본문에 넣지 않고 헤더로만 보낸다 (로그·기록에 남지 않게).
+    headers = {"Authorization": f"Bearer {token}"}
     try:
         if post:
-            req = urllib.request.Request(url, data=urllib.parse.urlencode(params).encode())
+            req = urllib.request.Request(url, data=urllib.parse.urlencode(params).encode(), headers=headers)
         else:
-            req = urllib.request.Request(f"{url}?{urllib.parse.urlencode(params)}")
+            req = urllib.request.Request(f"{url}?{urllib.parse.urlencode(params)}", headers=headers)
         with urllib.request.urlopen(req, timeout=60) as resp:
             return json.load(resp)
     except urllib.error.HTTPError as e:
@@ -125,6 +126,9 @@ def main():
 
     sub.add_parser("limit", help="24시간 안에 더 올릴 수 있는 수 확인")
 
+    t = sub.add_parser("test-image", help="게시하지 않고 이미지 주소가 받아지는지만 확인 (컨테이너만 만들고 24시간 뒤 자동 삭제)")
+    t.add_argument("url")
+
     args = p.parse_args()
 
     if args.cmd == "limit":
@@ -133,6 +137,11 @@ def main():
         used = info.get("quota_usage", 0)
         total = info.get("config", {}).get("quota_total", "?")
         print(f"지난 24시간 게시: {used} / {total}")
+        return
+
+    if args.cmd == "test-image":
+        r = call(f"{ig_id()}/media", {"image_url": args.url, "is_carousel_item": "true"}, post=True)
+        print("이미지 확인 OK (게시 안 함), 컨테이너:", r.get("id"))
         return
 
     caption = args.caption

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>웨딩 꿀팁 AI 오피스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cute+Font&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 레이아웃: 파스텔 픽셀 게임. 초록 깅엄 배경 위 분홍 HUD 바 → 왼쪽 동물 직원 방 / 오른쪽 창(window) 모양 승인함+기록. 휴대폰은 승인함이 맨 위. 단일 테마. */
+  --ging-a:#BFE8A6; --ging-b:rgba(70,170,100,.34);
+  --pink:#F6A6C4; --pink-deep:#E8739F; --cream:#FFF7DA; --cream-2:#FBEBB8; --ink:#5B3A5E; --muted:#8C708E;
+  --mint:#8FD18A; --mint-deep:#4FAE6A; --sky:#9FDCEB; --yellow:#FFD86B; --red:#EE6B6B; --grey:#C9BFCB;
+  --wall:#F9DCE3; --floor:#CDDFA2;
+  --pixel:"Press Start 2P", monospace;
+  --kr:"Cute Font", "IBM Plex Sans KR", sans-serif;
+  --body:"IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.5;background-color:var(--ging-a);
+  background-image:linear-gradient(90deg,var(--ging-b) 50%,transparent 50%),linear-gradient(var(--ging-b) 50%,transparent 50%);
+  background-size:72px 72px}
+img{image-rendering:pixelated}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 56px;display:flex;flex-direction:column;gap:22px}
+
+/* HUD */
+.hud{background:var(--pink);border:3px solid var(--ink);border-radius:14px;box-shadow:0 5px 0 0 var(--ink);padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}
+.logo{display:flex;align-items:center;gap:10px;margin-right:auto}
+.logo img{width:36px;height:36px;flex:none;animation:beat 1.2s steps(2) infinite}
+@keyframes beat{50%{transform:translateY(-3px)}}
+h1{font-family:var(--kr);font-weight:400;font-size:36px;line-height:1;margin:0;color:#fff;text-shadow:2px 2px 0 var(--ink)}
+.conn{font-family:var(--pixel);font-size:7px;color:var(--ink);display:flex;align-items:center;gap:6px;margin-top:6px}
+.conn i{width:8px;height:8px;border-radius:50%;background:var(--grey);box-shadow:0 0 0 2px var(--ink)}
+.conn.live i{background:#7BE08F;animation:blink 1.4s steps(1) infinite}
+@keyframes blink{50%{opacity:.35}}
+.caps{display:flex;gap:10px;flex-wrap:wrap}
+.cap{display:flex;align-items:center;gap:8px;background:var(--cream);border:3px solid var(--ink);border-radius:999px;padding:5px 14px 5px 6px}
+.cap img{width:24px;height:24px}
+.cap b{font-family:var(--pixel);font-size:13px;font-weight:400;min-width:1.2em;text-align:center}
+.cap span{font-family:var(--kr);font-size:20px;line-height:1;color:var(--muted)}
+.cap.hot{background:var(--yellow)}
+.cap.hot span{color:var(--ink)}
+
+.banner{padding:9px 14px;font-size:13px;background:var(--cream);border:3px solid var(--ink);border-radius:12px}
+.banner.warn{background:#FFD0CC}
+
+.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:22px;align-items:start}
+.side{display:flex;flex-direction:column;gap:22px}
+
+/* 창(window) */
+.win{background:var(--cream);border:3px solid var(--ink);border-radius:12px;box-shadow:0 5px 0 0 var(--ink);overflow:hidden}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;border-bottom:3px solid var(--ink);background:var(--cream-2)}
+.lights{display:flex;gap:5px}
+.lights i{width:11px;height:11px;border-radius:50%;border:2px solid var(--ink);background:var(--red)}
+.lights i:nth-child(2){background:var(--yellow)}.lights i:nth-child(3){background:var(--mint)}
+.bar h2{font-family:var(--kr);font-weight:400;font-size:26px;line-height:1;margin:0;display:flex;align-items:baseline;gap:8px}
+.bar h2 em{font-family:var(--pixel);font-style:normal;font-size:9px;color:var(--pink-deep)}
+.body{padding:14px}
+
+/* 직원 방 */
+.desks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.desk{background:#fff;border:3px solid var(--ink);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.room{position:relative;height:120px;border-bottom:3px solid var(--ink);background:linear-gradient(var(--wall) 0 66%,var(--floor) 66%)}
+.room::before{content:"";position:absolute;left:0;right:0;top:66%;height:3px;background:var(--ink);opacity:.55}
+.frame{position:absolute;left:12px;top:12px;width:30px;height:30px;background:#fff;border:3px solid var(--ink);border-radius:4px;display:grid;place-items:center}
+.frame img{width:16px;height:16px}
+.plant{position:absolute;right:12px;bottom:8px;width:24px;height:36px}
+.sprite{position:absolute;left:50%;bottom:2px;width:96px;height:96px;margin-left:-48px}
+.desk.working .sprite{animation:bob .6s steps(2) infinite}
+@keyframes bob{50%{transform:translateY(-3px)}}
+.bubble{position:absolute;left:calc(50% + 34px);top:8px;min-width:34px;padding:6px 7px 5px;text-align:center;font-family:var(--pixel);font-size:9px;line-height:1;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:8px}
+.desk.waiting .bubble{background:var(--yellow);animation:hop .5s steps(2) infinite}
+@keyframes hop{50%{transform:translateY(-4px)}}
+.desk.idle .bubble{color:var(--muted)}
+.typing i{display:inline-block;width:4px;height:4px;background:var(--ink);margin:0 1px;animation:blink 1s steps(1) infinite}
+.typing i:nth-child(2){animation-delay:.33s}.typing i:nth-child(3){animation-delay:.66s}
+.info{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.who{display:flex;align-items:flex-start;gap:8px;justify-content:space-between}
+.name{font-family:var(--kr);font-size:26px;line-height:1}
+.role{font-size:12px;color:var(--muted)}
+.pill{font-family:var(--kr);font-size:18px;line-height:1;padding:3px 9px 2px;white-space:nowrap;border:2px solid var(--ink);border-radius:999px}
+.pill.working{background:var(--mint)}
+.pill.waiting{background:var(--yellow)}
+.pill.idle{background:#EFE9F0;color:var(--muted)}
+.say{background:var(--cream);border:2px dashed var(--ink);border-radius:8px;font-size:12.5px;padding:7px 9px;min-height:52px;overflow-wrap:anywhere}
+.meta{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* 승인함 */
+.inbox{display:flex;flex-direction:column;gap:14px}
+.ap{background:#fff;border:3px solid var(--ink);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.ap-top{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.tag{font-family:var(--kr);font-size:18px;line-height:1;padding:3px 9px 2px;background:var(--yellow);color:var(--ink);border:2px solid var(--ink);border-radius:999px}
+.kind-댓글 .tag{background:var(--pink)}
+.kind-디자인 .tag{background:var(--sky)}
+.kind-전략 .tag{background:#C9B8F2}
+.strat{display:flex;flex-direction:column;gap:10px}
+.st{background:#fff;border:3px solid var(--ink);border-radius:10px;padding:10px 12px}
+.st b{display:block;line-height:1.4}
+.st p{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.ap-title{font-weight:600;line-height:1.4}
+.ap-detail{font-size:13px;color:var(--muted);white-space:pre-wrap}
+.ap label{font-size:12px;color:var(--muted)}
+.ap textarea{width:100%;font:inherit;font-size:13px;border:2px solid var(--ink);border-radius:8px;padding:7px;background:var(--cream);color:var(--ink);resize:vertical;min-height:38px}
+.btns{display:flex;gap:10px;padding-bottom:4px}
+button{font-family:var(--kr);font-size:22px;line-height:1;padding:8px 10px 7px;cursor:pointer;border:3px solid var(--ink);border-radius:999px;color:var(--ink);flex:1;box-shadow:0 4px 0 0 var(--ink)}
+button.yes{background:var(--pink-deep);color:#fff}
+button.no{background:#fff}
+button.redo{background:var(--yellow)}
+.btns button{font-size:20px;padding:8px 6px 7px}
+.hint{font-size:11.5px;color:var(--muted);line-height:1.5}
+.done .redo{color:#B7700F;font-weight:600}
+button:active:not(:disabled){transform:translateY(4px);box-shadow:none}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--mint-deep);outline-offset:2px}
+.empty{font-size:13px;color:var(--muted);padding:4px 0}
+.done{font-size:12px;color:var(--muted);border-top:3px dotted var(--ink);padding-top:10px;margin-top:14px;display:flex;flex-direction:column;gap:4px}
+.done:empty{display:none}
+.done .ok{color:var(--mint-deep);font-weight:600}
+.done .rej{color:var(--red);font-weight:600}
+.feed{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.feed li{display:grid;grid-template-columns:48px 1fr;gap:8px;padding:7px 0;border-bottom:2px dotted var(--grey);font-size:12.5px}
+.feed li:last-child{border-bottom:0}
+.feed time{font-family:var(--pixel);font-size:7px;color:var(--pink-deep);padding-top:5px}
+.feed b{font-weight:600}
+.err{color:var(--red);font-size:12px}
+.err:empty{display:none}
+@media (max-width:860px){
+  .grid{display:flex;flex-direction:column}
+  .side{display:contents}
+  #inboxPanel{order:-1}
+}
+@media (max-width:520px){
+  h1{font-size:30px}
+  .caps{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .cap{flex-direction:column;gap:2px;border-radius:12px;padding:6px 4px}
+  .cap span{font-size:17px}
+  .desks{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .who{flex-direction:column}
+}
+@media (prefers-reduced-motion: reduce){
+  .logo img,.conn.live i,.desk.working .sprite,.desk.waiting .bubble,.typing i{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hud">
+    <div class="logo">
+      <img id="heart" alt="">
+      <div>
+        <h1>웨딩 꿀팁 AI 오피스</h1>
+        <div class="conn" id="conn"><i></i><span>CONNECTING</span></div>
+      </div>
+    </div>
+    <div class="caps">
+      <div class="cap hot"><img id="icoHeart" alt=""><b id="sPending">-</b><span>승인 대기</span></div>
+      <div class="cap"><img id="icoStar" alt=""><b id="sWorking">-</b><span>일하는 중</span></div>
+      <div class="cap"><img id="icoNote" alt=""><b id="sToday">-</b><span>오늘 기록</span></div>
+    </div>
+  </header>
+
+  <div class="banner" id="sampleBanner" hidden>지금 보이는 내용은 화면 확인용 <b>예시 데이터</b>입니다. 직원들이 실제로 일을 시작하면 진짜 기록으로 바뀝니다.</div>
+  <div class="banner warn" id="offlineBanner" hidden></div>
+
+  <div class="grid">
+    <section class="win">
+      <div class="bar"><span class="lights"><i></i><i></i><i></i></span><h2>사무실 <em id="deskCount"></em></h2></div>
+      <div class="body"><div class="desks" id="desks"></div></div>
+    </section>
+    <div class="side">
+      <section class="win" id="inboxPanel">
+        <div class="bar"><span class="lights"><i></i><i></i><i></i></span><h2>내 승인 대기함 <em id="inboxCount"></em></h2></div>
+        <div class="body"><div class="inbox" id="inbox"></div><div class="done" id="done"></div></div>
+      </section>
+      <section class="win">
+        <div class="bar"><span class="lights"><i></i><i></i><i></i></span><h2>우리 전략 <em id="stratCount"></em></h2></div>
+        <div class="body"><div class="strat" id="strat"></div></div>
+      </section>
+      <section class="win">
+        <div class="bar"><span class="lights"><i></i><i></i><i></i></span><h2>작업 기록</h2></div>
+        <div class="body"><ul class="feed" id="feed"></ul></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const STATUS = {working:"일하는 중", waiting:"승인 대기", idle:"쉬는 중"};
+  let agents = [], approvals = [], logs = [], strategies = [], db = null, canWrite = true;
+  const busy = new Set();
+  const TRIG = {researcher:"trig_01JKtAXpyeG1Jcn23xheiDFD", planner:"trig_01UWSvXJuiVshn1tGy4hsxxu", designer:"trig_01SdoWkDSPuLEVtikf5WdAps", analyst:"trig_01QPbUjazngXYz42QfGbdi6Q", publisher:"trig_01Dgj4ptzJyyRYGFvjiHgzrX"};
+  const WHO_DOES = {"주제":"researcher", "댓글":"researcher", "기획":"planner", "디자인":"designer", "전략":"analyst", "게시":"publisher"};
+  const AGENT_KO = {researcher:"고양이", planner:"곰", designer:"개구리", analyst:"부엉이"};
+  let toast = "";
+  async function wakeAgent(kind, approvalId){
+    const agent = WHO_DOES[kind]; if(!agent) return null;
+    try{
+      const mcp = await claude.use("mcp");
+      if(!mcp) return {ok:false, agent};
+      await mcp.callTool("Claude Code Remote", "fire_trigger", {trigger_id: TRIG[agent], text: "대시보드에서 방금 처리된 승인 건이 있어요: approvals/" + approvalId + ". 이 건부터 처리해주세요."});
+      return {ok:true, agent};
+    }catch(e){ return {ok:false, agent, code: e && e.code}; }
+  }
+  const INK = "#5B3A5E";
+
+  /* ---------- 픽셀 그림 ---------- */
+  function draw(rows, pal, w, h){
+    const c = document.createElement("canvas"); c.width = w; c.height = h;
+    const g = c.getContext("2d");
+    rows.forEach((r, y) => { for(let x = 0; x < r.length; x++){ const k = pal[r[x]]; if(k){ g.fillStyle = k; g.fillRect(x, y, 1, 1); } } });
+    return c.toDataURL();
+  }
+  const BASE = [
+    "................","................","................",
+    "....FFFFFFFF....",
+    "...FFFFFFFFFF...","...FFFFFFFFFF...","...FFFFFFFFFF...","...FFFFFFFFFF...",
+    "....FFFFFFFF....",
+    "...CCLLLLLLCC...",
+    "...CCLLllLLCC...",
+    ".DDDDDDDDDDDDDD.",".DDDDDDDDDDDDDD.",
+    ".dd..........dd.",".dd..........dd.",
+    "................"
+  ];
+  /* 동물별: 털색, 옷색, 그리고 귀·주둥이 등을 덧칠하는 함수 */
+  const ANIMALS = {
+    fox:{label:"여우", fur:"#F29A52", shirt:"#9FDCEB", paint(s){
+      s(3,0,"O");s(12,0,"O");s(3,1,"F");s(12,1,"F");s(3,2,"F");s(4,2,"F");s(11,2,"F");s(12,2,"F");
+      for(let x=5;x<=10;x++){s(x,6,"W");s(x,7,"W");s(x,8,"W");} }},
+    cat:{label:"고양이", fur:"#FFD98A", shirt:"#F6A6C4", paint(s){
+      s(3,1,"F");s(12,1,"F");s(3,2,"F");s(4,2,"P");s(11,2,"P");s(12,2,"F");
+      s(6,3,"O");s(8,3,"O");s(10,3,"O"); }},
+    penguin:{label:"펭귄", fur:"#5B6BA8", shirt:"#FFD86B", nose:"#F2A93B", paint(s){
+      for(let x=5;x<=10;x++){s(x,4,"W");s(x,8,"W");}
+      for(let y=5;y<=7;y++)for(let x=4;x<=11;x++)s(x,y,"W"); }},
+    bear:{label:"곰", fur:"#C99A72", shirt:"#8FD18A", paint(s){
+      s(3,1,"F");s(4,1,"F");s(11,1,"F");s(12,1,"F");s(3,2,"F");s(4,2,"F");s(11,2,"F");s(12,2,"F");s(3,3,"F");s(12,3,"F");
+      for(let x=6;x<=9;x++){s(x,6,"W");s(x,7,"W");} }, white:"#F6E3C8"},
+    frog:{label:"개구리", fur:"#8FD18A", shirt:"#FFB07A", eyeY:2, noNose:true, paint(s){
+      s(4,1,"F");s(5,1,"F");s(10,1,"F");s(11,1,"F");
+      for(let x=3;x<=6;x++)s(x,2,"F"); for(let x=9;x<=12;x++)s(x,2,"F");
+      for(let x=6;x<=9;x++)s(x,7,"O"); }, dark:"#3F8F58"},
+    dog:{label:"강아지", fur:"#FFF3DC", shirt:"#B9A6F0", paint(s){
+      s(2,3,"O");s(3,3,"O");s(12,3,"O");s(13,3,"O");
+      for(let y=4;y<=6;y++){s(2,y,"O");s(13,y,"O");}
+      s(9,4,"O");s(10,4,"O");s(11,4,"O");s(11,5,"O");s(9,5,"O"); }, dark:"#B9814F"},
+    owl:{label:"부엉이", fur:"#B08A6E", shirt:"#F6A6C4", nose:"#F2A93B", noBlush:true, paint(s){
+      s(3,1,"F");s(12,1,"F");s(3,2,"F");s(4,2,"F");s(11,2,"F");s(12,2,"F");
+      for(let y=4;y<=6;y++){for(let x=4;x<=6;x++)s(x,y,"W");for(let x=9;x<=11;x++)s(x,y,"W");} }}
+  };
+  const WHO = {scout:"fox", researcher:"cat", mail:"penguin", planner:"bear", designer:"frog", publisher:"dog", analyst:"owl"};
+  const KINDS = Object.keys(ANIMALS);
+  function kindOf(id){
+    if(WHO[id]) return WHO[id];
+    let n = 0; for(const ch of String(id)) n += ch.charCodeAt(0);
+    return KINDS[n % KINDS.length];
+  }
+  const cache = new Map();
+  function sprite(id, status){
+    const kind = kindOf(id), key = kind + "|" + status;
+    if(cache.has(key)) return cache.get(key);
+    const a = ANIMALS[kind];
+    const g = BASE.map(r => r.split(""));
+    const s = (x, y, k) => { g[y][x] = k; };
+    a.paint(s);
+    if(!a.noBlush){ s(4,7,"P"); s(11,7,"P"); }
+    if(!a.noNose){ s(7,6,"N"); s(8,6,"N"); }
+    const ey = a.eyeY ?? 5;
+    if(status === "idle"){ s(5,ey,"E"); s(6,ey,"E"); s(10,ey,"E"); s(9,ey,"E"); }
+    else { s(5,ey,"E"); s(5,ey-1,"E"); s(10,ey,"E"); s(10,ey-1,"E"); }
+    const pal = {F:a.fur, W:a.white || "#FFFFFF", O:a.dark || INK, P:"#F7A1B5", N:a.nose || INK, E:INK, C:a.shirt,
+      L:"#EDEAF2", l: status === "working" ? "#E8739F" : "#B7AEC0", D:"#D9A066", d:"#B07B45"};
+    const url = draw(g.map(r => r.join("")), pal, 16, 16);
+    cache.set(key, url); return url;
+  }
+  const HEART = draw(["........",".PP..PP.","PWPPPPPP","PPPPPPPP","PPPPPPPP",".PPPPPP.","..PPPP..","...PP..."], {P:"#E8739F",W:"#FFE1EC"}, 8, 8);
+  const STAR = draw(["...YY...","...YY...","YYYYYYYY",".YYYYYY.","..YYYY..",".YYYYYY.",".YY..YY.","........"], {Y:"#F2A93B"}, 8, 8);
+  const NOTE = draw([".BBBBB..",".BBBBBB.",".BWWWWB.",".BBBBBB.",".BWWWWB.",".BBBBBB.",".BWWWBB.",".BBBBBB."], {B:"#6FC3DA",W:"#FFFFFF"}, 8, 8);
+  const PLANT = draw([".GG.G.","GGGGGG",".GGGG.","GGGGGG","..GG..",".PPPP.",".PPPP.","..PP..","......"], {G:"#4FAE6A",P:"#E8739F"}, 6, 9);
+  $("heart").src = HEART; $("icoHeart").src = HEART; $("icoStar").src = STAR; $("icoNote").src = NOTE;
+
+  /* ---------- 화면 ---------- */
+  function ago(iso){
+    if(!iso) return "-";
+    const d = new Date(iso); if(isNaN(d)) return "-";
+    const m = Math.round((Date.now() - d.getTime())/60000);
+    if(m < 1) return "방금";
+    if(m < 60) return m + "분 전";
+    const h = Math.round(m/60); if(h < 24) return h + "시간 전";
+    return Math.round(h/24) + "일 전";
+  }
+  function hhmm(iso){
+    const d = new Date(iso); if(isNaN(d)) return "";
+    const today = new Date().toDateString() === d.toDateString();
+    const t = d.toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit",hour12:false});
+    return today ? t : (d.getMonth()+1) + "/" + d.getDate();
+  }
+  const nameOf = id => (agents.find(a => a.id === id) || {}).name || id || "";
+  const BUBBLE = {working:'<span class="typing"><i></i><i></i><i></i></span>', waiting:"!", idle:"Zz"};
+
+  function render(){
+    const sample = [...agents, ...approvals, ...logs].some(x => x.sample);
+    $("sampleBanner").hidden = !sample;
+
+    const sorted = [...agents].sort((a,b) => (a.order ?? 99) - (b.order ?? 99));
+    $("deskCount").textContent = sorted.length ? "x" + sorted.length : "";
+    $("desks").innerHTML = sorted.length ? sorted.map(a => {
+      const st = STATUS[a.status] ? a.status : "idle";
+      const animal = ANIMALS[kindOf(a.id)].label;
+      return `<article class="desk ${st}">
+        <div class="room" aria-hidden="true">
+          <div class="frame"><img src="${HEART}" alt=""></div>
+          <img class="plant" src="${PLANT}" alt="">
+          <img class="sprite" src="${sprite(a.id, st)}" alt="">
+          <div class="bubble">${BUBBLE[st]}</div>
+        </div>
+        <div class="info">
+          <div class="who"><div><div class="name">${esc(a.name)}</div><div class="role">${esc(animal)} · ${esc(a.role)}</div></div>
+            <span class="pill ${st}">${STATUS[st]}</span></div>
+          <div class="say">${esc(a.task || "다음 일을 기다리는 중")}</div>
+          <div class="meta"><span>마지막 ${ago(a.lastRun)}</span><span>${esc(a.next || "")}</span></div>
+        </div>
+      </article>`;
+    }).join("") : `<div class="empty">아직 출근한 직원이 없습니다.</div>`;
+
+    const pending = approvals.filter(x => x.status === "pending").sort((a,b) => String(a.createdAt).localeCompare(String(b.createdAt)));
+    const decided = approvals.filter(x => x.status !== "pending").sort((a,b) => String(b.decidedAt||"").localeCompare(String(a.decidedAt||""))).slice(0,4);
+    $("inboxCount").textContent = pending.length ? "x" + pending.length : "";
+    const keep = {}; document.querySelectorAll("#inbox textarea").forEach(t => { keep[t.id] = t.value; });
+    const focusId = document.activeElement && document.activeElement.tagName === "TEXTAREA" ? document.activeElement.id : null;
+    $("inbox").innerHTML = pending.length ? pending.map(x => `
+      <div class="ap kind-${esc(x.kind)}" data-id="${esc(x.id)}">
+        <div class="ap-top"><span class="tag">${esc(x.kind)}</span><span>${esc(nameOf(x.agent))} · ${ago(x.createdAt)}</span></div>
+        <div class="ap-title">${esc(x.title)}</div>
+        ${x.detail ? `<div class="ap-detail">${esc(x.detail)}</div>` : ""}
+        <label for="note-${esc(x.id)}">메모</label>
+        <textarea id="note-${esc(x.id)}" rows="2" placeholder="다시 해와: 무엇을 고칠지 꼭 적어주세요 · 승인: 진행하면서 반영할 점(선택)"></textarea>
+        <div class="btns">
+          <button class="yes" data-act="approved" ${(!canWrite||busy.has(x.id))?"disabled":""}>승인</button>
+          <button class="redo" data-act="revise" ${(!canWrite||busy.has(x.id))?"disabled":""}>다시 해와</button>
+          <button class="no" data-act="rejected" ${(!canWrite||busy.has(x.id))?"disabled":""}>그만</button>
+        </div>
+        <div class="hint">승인 = 다음 단계로 · 다시 해와 = 메모대로 고쳐서 다시 올림 · 그만 = 이 건은 접기</div>
+        <div class="err" id="err-${esc(x.id)}"></div>
+      </div>`).join("") : `<div class="empty">승인할 일이 없습니다. 직원이 요청하면 여기에 나타납니다.</div>`;
+    Object.keys(keep).forEach(id => { const t = document.getElementById(id); if(t) t.value = keep[id]; });
+    if(focusId){ const t = document.getElementById(focusId); if(t) t.focus(); }
+    $("done").innerHTML = (toast ? `<div style="color:var(--ink);font-weight:600">${esc(toast)}</div>` : "") + (decided.length ? `<div>최근 처리</div>` + decided.map(x =>
+      `<div><span class="${x.status==="approved"?"ok":x.status==="revise"?"redo":"rej"}">${x.status==="approved"?"승인":x.status==="revise"?"다시 요청":"그만"}</span> · ${esc(x.title)}${x.note?` (${esc(x.note)})`:""}</div>`).join("") : "");
+
+    const act = strategies.filter(x => x.status !== "retired");
+    $("stratCount").textContent = act.length ? "x" + act.length : "";
+    $("strat").innerHTML = act.length ? act.map(x => `<div class="st"><b>${esc(x.title)}</b>${x.summary?`<p>${esc(x.summary)}</p>`:""}${x.howToApply?`<p>적용: ${esc(x.howToApply)}</p>`:""}</div>`).join("") : `<div class="empty">아직 승인한 전략이 없어요. 부엉이가 근거와 함께 제안하면 승인함에 올라와요.</div>`;
+
+    $("feed").innerHTML = logs.length ? logs.map(l =>
+      `<li><time>${hhmm(l.ts)}</time><div><b>${esc(nameOf(l.agent) || "나")}</b> ${esc(l.text)}</div></li>`).join("")
+      : `<li><time></time><div class="empty">아직 기록이 없습니다.</div></li>`;
+
+    $("sPending").textContent = pending.length;
+    $("sWorking").textContent = agents.filter(a => a.status === "working").length;
+    const todayStr = new Date().toDateString();
+    $("sToday").textContent = logs.filter(l => new Date(l.ts).toDateString() === todayStr).length;
+  }
+
+  $("inbox").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-act]"); if(!btn || !db) return;
+    const card = btn.closest(".ap"); const id = card.dataset.id; if(busy.has(id)) return;
+    const act = btn.dataset.act; const note = card.querySelector("textarea").value.trim();
+    const item = approvals.find(x => x.id === id);
+    if(act === "revise" && !note){ const el = $("err-"+id); if(el) el.textContent = "무엇을 고칠지 메모를 적어주세요. 메모대로 다시 해옵니다."; const t = card.querySelector("textarea"); if(t) t.focus(); return; }
+    busy.add(id); render();
+    try{
+      const now = new Date().toISOString();
+      await db.collection("approvals").doc(id).update({status:act, decidedAt:now, note});
+      await db.collection("logs").add({agent:"", text:`${item ? item.kind : ""} ${act==="approved"?"승인":act==="revise"?"다시 요청":"그만"}: ${item ? item.title : id}${note?` (메모: ${note})`:""}`, ts:now});
+    }catch(err){
+      busy.delete(id);
+      if(err && err.code === "invalid_argument"){ canWrite = false; }
+      render();
+      const el = $("err-"+id);
+      if(el) el.textContent = err && err.code === "invalid_argument" ? "이 화면에서는 승인 권한이 없습니다. 오피스 주인 계정으로 열어주세요." : "저장하지 못했습니다. 잠시 후 다시 눌러주세요.";
+      return;
+    }
+    busy.delete(id);
+    if(act !== "rejected" && item){
+      toast = "담당 직원을 부르는 중…"; render();
+      const r = await wakeAgent(item.kind, id);
+      if(r){ toast = r.ok ? `${AGENT_KO[r.agent]}에게 바로 일을 시켰어요. 몇 분 안에 처리돼요.` : `지금 바로 부르지 못했어요. ${AGENT_KO[r.agent]}가 다음 정해진 시간에 처리해요.`; }
+      else toast = "";
+      render();
+    }
+  });
+
+  function setConn(live, text){ const c=$("conn"); c.classList.toggle("live", live); c.querySelector("span").textContent = text; }
+  function offline(msg){ const b=$("offlineBanner"); b.hidden=!msg; b.textContent = msg||""; }
+
+  render();
+  setInterval(render, 60000);
+
+  (async () => {
+    db = await claude.use("db").catch(() => null);
+    if(!db){ setConn(false, "OFFLINE"); offline("데이터 저장소에 연결할 수 없습니다. claude.ai에 로그인한 상태로 이 페이지를 열어주세요."); return; }
+    try{
+      const user = await claude.use("user").catch(() => null);
+      if(user && typeof user.can === "function"){ const w = await user.can("data.write"); if(w === false) canWrite = false; }
+    }catch(_){}
+    let confirmed = 0;
+    const timer = setTimeout(() => { if(confirmed < 3) offline("데이터를 아직 불러오지 못했습니다. 연결이 느리거나 끊겼을 수 있어요. 보이는 내용이 최신이 아닐 수 있습니다."); }, 10000);
+    const seen = new Set();
+    const mark = (key, snap) => { if(!snap.metadata.fromCache && !seen.has(key)){ seen.add(key); confirmed++; if(confirmed>=3){ clearTimeout(timer); offline(""); setConn(true,"ONLINE"); } } };
+    const fail = e => { clearTimeout(timer); setConn(false,"OFFLINE"); offline(e && e.code === "revoked" ? "이 화면의 접근 권한이 바뀌었습니다." : "실시간 연결이 끊겼습니다. 페이지를 새로 열어주세요."); };
+    const docs = s => s.docs.map(d => Object.assign({id:d.id}, d.data()));
+    db.collection("agents").onSnapshot(s => { agents = docs(s); mark("a", s); render(); }, fail);
+    db.collection("approvals").orderBy("createdAt","desc").limit(60).onSnapshot(s => { approvals = docs(s); mark("p", s); render(); }, fail);
+    db.collection("logs").orderBy("ts","desc").limit(30).onSnapshot(s => { logs = docs(s); mark("l", s); render(); }, fail);
+    db.collection("strategies").onSnapshot(s => { strategies = docs(s); render(); }, () => {});
+  })();
+})();
+</script>
+</body>
+</html>
